@@ -1,150 +1,48 @@
-import React, { useEffect, useState } from 'react'
-import { data, Route, Routes, useNavigate } from 'react-router-dom'
-import Home from './pages/Home'
-import Add_Products from './pages/Add_Products'
-import View_Products from './pages/View_Products'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import Header from './components/Header'
-import Dashboard from './pages/Dashboard'
-import { toast, ToastContainer } from 'react-toastify'
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Details from "./pages/Details";
+import Login from "./pages/Login";
+import Favorites from "./pages/Favorites";
+import PrivateRoute from "./components/PrivateRoute";
+import NotFound from "./pages/NotFound";
+import "./App.css";
 
 const App = () => {
-
-  const [product, setProduct] = useState({})
-  const [list, setList] = useState([]);
-  const [editId, setEditId] = useState(null);
-  const [error, setError] = useState({})
-  const [category, setCategory] = useState([
-    "Electronics",
-    "Fashion",
-    "Mobile",
-    "Beauty",
-    "Home",
-    "Toys",
-    "Food & Health ",
-    "Sports",
-    "Books & Meadia",
-    "Furniture"
-  ])
-  const navigator = useNavigate()
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setProduct({ ...product, [name]: value })
-  }
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!validation()) return
-
-    if (editId != null) {
-      let newList = [...list];
-
-      newList = list.map((item) => {
-        if (editId == item.id) {
-          return product
-        } else {
-          return item;
-        }
-      });
-
-      setList(newList);
-      toast.success("data updated")
-      
-
-      localStorage.setItem(
-        "products",
-        JSON.stringify(newList)
-      );
-
-      setEditId(null);
-    } else {
-      const newList = [...list, { ...product, id: Date.now() }];
-
-      setList(newList);
-      setProduct({})
-      toast.success("Product Added")
-
-      localStorage.setItem(
-        "products",
-        JSON.stringify(newList)
-      );
-    }
-  };
-
-  const handleDelete = (id) => {
-    const newList = list.filter(item => item.id != id)
-    setList(newList)
-    localStorage.setItem("products", JSON.stringify(newList))
-    toast.warn("product Deleted")
-  }
-
-  const handleEdit = (id) => {
-    const data = list.find(item => item.id == id)
-    setProduct(data)
-    setEditId(id)
-    navigator('/add-products')
-  }
-  useEffect(() => {
-    const oldData = JSON.parse(
-      localStorage.getItem("products")
-    );
-    if (oldData) {
-      setList(oldData);
-    }
-  }, []);
-
-  const validation = () => {
-    let error = {};
-
-    if (!product.title)
-      error.title = "Title is Required";
-
-    if (!product.imgurl)
-      error.imgurl = "Image URL is Required";
-
-    if (!product.price)
-      error.price = "Price is Required";
-
-    if (!product.category)
-      error.category = "Category is Required";
-
-    if (!product.description)
-      error.description = "Description is Required";
-
-    setError(error);
-
-    return Object.keys(error).length === 0;
-  };
-
   return (
+    <div className="min-vh-100 d-flex flex-column" style={{ backgroundColor: "#f5f5f7" }}>
+      <Navbar />
 
-    <>
-      <Header />
-      <Routes>
-        <Route path='/' element={<Home list={list}/>} />
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/add-products' element={<Add_Products
-          handleSubmit={handleSubmit}
-          product={product}
-          handleChange={handleChange}
-          category={category}
-          error={error}
-          editId={editId}
-        />} />
-        <Route path='/view-products' element={<View_Products
+      <main className="flex-grow-1">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/details/:id" element={<Details />} />
+          <Route path="/login" element={<Login />} />
+          
+          <Route
+            path="/favorites"
+            element={
+              <PrivateRoute>
+                <Favorites />
+              </PrivateRoute>
+            }
+          />
 
-          list={list}
-          handleDelete={handleDelete}
-          handleEdit={handleEdit}
-          category={category}
-        />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-      </Routes>
-      <ToastContainer />
-    </>
-  )
-}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </main>
 
-export default App
+      <footer className="py-4 border-top mt-auto" style={{ backgroundColor: "#333545", color: "#cccccc" }}>
+        <div className="container text-center">
+          <p className="mb-1 fw-bold text-white fs-5">
+            book<span style={{ color: "#f84464" }}>my</span>show
+          </p>
+          <small>© 2026 Movie Library. Inspired by BookMyShow layout & powered by TMDb API.</small>
+        </div>
+      </footer>
+    </div>
+  );
+};
+
+export default App;

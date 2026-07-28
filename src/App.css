@@ -1,0 +1,192 @@
+/* BookMyShow Theme System */
+:root {
+  --bms-red: #f84464;
+  --bms-red-hover: #d83452;
+  --bms-header-bg: #333545;
+  --bms-sub-header: #222539;
+  --bms-body-bg: #f5f5f7;
+  --bms-card-bg: #ffffff;
+  --bms-text-dark: #222222;
+  --bms-text-muted: #666666;
+  --bms-border-color: #e5e5e5;
+}
+
+body {
+  background-color: var(--bms-body-bg);
+  color: var(--bms-text-dark);
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  min-height: 100vh;
+}
+
+/* Navbar */
+.bms-navbar {
+  background-color: var(--bms-header-bg) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.bms-brand {
+  color: #ffffff !important;
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.5px;
+}
+
+.bms-brand-highlight {
+  color: var(--bms-red);
+}
+
+.bms-nav-link {
+  color: #cccccc !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  transition: color 0.2s ease;
+}
+
+.bms-nav-link:hover,
+.bms-nav-link.active {
+  color: #ffffff !important;
+}
+
+/* Main Section Header */
+.main-title {
+  color: var(--bms-text-dark);
+  font-weight: 700;
+  font-size: 1.65rem;
+}
+
+/* BookMyShow Card Styling */
+.product-card {
+  background-color: var(--bms-card-bg);
+  border: 1px solid var(--bms-border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+.image-box {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--bms-border-color);
+}
+
+.product-image {
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.04);
+}
+
+/* Rating Badge inside Card Image */
+.bms-rating-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88), transparent);
+  color: #ffffff;
+  padding: 8px 10px 4px 10px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-body {
+  padding: 1rem;
+  background-color: var(--bms-card-bg);
+}
+
+.product-title {
+  color: var(--bms-text-dark);
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.product-desc {
+  color: var(--bms-text-muted) !important;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+/* Buttons */
+.btn-bms-red {
+  background-color: var(--bms-red) !important;
+  color: #ffffff !important;
+  border: none !important;
+  font-weight: 600;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-bms-red:hover {
+  background-color: var(--bms-red-hover) !important;
+  color: #ffffff !important;
+}
+
+.btn-bms-outline {
+  border: 1px solid var(--bms-red) !important;
+  color: var(--bms-red) !important;
+  background: transparent !important;
+  font-weight: 600;
+  border-radius: 6px;
+}
+
+.btn-bms-outline:hover {
+  background-color: var(--bms-red) !important;
+  color: #ffffff !important;
+}
+
+.load-btn {
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 8px 28px;
+}
+
+/* Movie Details Hero Banner */
+.bms-details-banner {
+  background-color: #1a1a24;
+  color: #ffffff;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bms-rating-box {
+  background-color: #222433;
+  border: 1px solid #33364d;
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+
+/* Search bar styling */
+.bms-search-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid var(--bms-border-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.bms-search-input {
+  border-color: #dddddd;
+}
+
+.bms-search-input:focus {
+  border-color: var(--bms-red);
+  box-shadow: 0 0 0 0.2rem rgba(248, 68, 100, 0.25);
+}
+
+/* Responsive Media Queries */
+@media (max-width: 576px) {
+  .product-image {
+    height: 250px !important;
+  }
+}
